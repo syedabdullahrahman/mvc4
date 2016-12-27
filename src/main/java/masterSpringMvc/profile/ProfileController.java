@@ -5,6 +5,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,13 +17,25 @@ import masterSpringMvc.date.LocalDateFormatter;
 @Controller
 public class ProfileController {
 
-	@ModelAttribute("dateFormat") 
+	private UserProfileSession userProfileSession;
+
+	@Autowired
+	public ProfileController(UserProfileSession userProfileSession) {
+		this.userProfileSession = userProfileSession;
+	}
+
+	@ModelAttribute("profileForm")
+	public ProfileForm getProfileForm() {
+		return userProfileSession.toForm();
+	}
+
+	@ModelAttribute("dateFormat")
 	public String localeFormat(Locale locale) {
 		return LocalDateFormatter.getPattern(locale); 
 	}
 	
 	@RequestMapping("/profile")
-	public String displayProfile(ProfileForm propfileForm) {
+	public String displayProfile(ProfileForm profileForm) {
 		return "profile/profilePage";
 	}
 	
@@ -31,12 +44,13 @@ public class ProfileController {
 		if (bindingResult.hasErrors()) {
 			return "profile/profilePage";
 		}
-		System.out.println("pomyślnie zapisany profil " + profileForm);
+		userProfileSession.saveForm(profileForm);
 		return "redirect:/profile";
 	}
 
 	@RequestMapping(value = "/profile", params = { "addTaste" })
 	public String addRow(ProfileForm profileForm) {
+		System.out.println("addtaste profileform use");
 		profileForm.getTastes().add(null);
 		return "profile/profilePage";
 	}
