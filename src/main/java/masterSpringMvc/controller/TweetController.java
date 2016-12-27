@@ -30,7 +30,7 @@ public class TweetController {
 	public String postSearch(HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		String search = request.getParameter("search");
 		if (search.toLowerCase().contains("trash")) {
-			redirectAttributes.addFlashAttribute("error", "Spróbuj wpisać Spring!");
+			redirectAttributes.addFlashAttribute("error", "");
 			return "redirect:/";
 		}
 		redirectAttributes.addAttribute("search", search);

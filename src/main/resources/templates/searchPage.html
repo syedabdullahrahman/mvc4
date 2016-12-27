@@ -8,7 +8,8 @@
 		<form th:action="@{/postSearch}" method="post" class="col m8 s12 offset-m2">
 			<div class="col s6 offset-s3">
 				<div id="errorMessage" class="card-panel red lighten-2" th:if="${error}">
-					<span class="card-title" th:text="${error}"></span>
+					<span class="card-title" th:text="#{trash.error}"></span>
+										<!-- th:text="${error}" -->
 				</div>
 		</div>
 				<div class="row center">
