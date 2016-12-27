@@ -1,36 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/default">
 <head lang="pl">
-	<title>Twój profil</title>
 </head>
 <body>
 	<div class="row" layout:fragment="content">
-		<h2 class="indigo-text center">Informacje osobiste</h2>
+		<h2 class="indigo-text center" th:text="#{profile.title}">Informacje osobiste</h2>
 		<form th:action="@{/profile}" method="post" th:object="${profileForm}" class="col m8 s12 offset-m2">
 			<ul th:if="${#fields.hasErrors('*')}" class="errorlist">
-				<li th:each="err : ${#fields.errors('*')}" th:text="${err}">
+				<!-- <li th:each="err : ${#fields.errors('*')}" th:text="${err}">
 					Błędne dane
 				</li>
+				 -->
 			</ul>
 			<div class="row">
 				<div class="input-field col s6">
-					<input th:field="${profileForm.twitterHandle}" id="twitterHandle" type="text" /> <label for="twitterHandle">Identyfikator
-						Twitter</label>
+					<input th:field="${profileForm.twitterHandle}" id="twitterHandle" 
+													type="text" th:errorclass="invalid"/>
+					<label for="twitterHandle" th:text="#{twitter.handle}">Identyfikator Twitter</label>
+					<div th:errors="*{twitterHandle}" class="red-text">Błąd</div>
 				</div>
 				<div class="input-field col s6">
-					<input  th:field="${profileForm.email}"  id="email" type="text" /> <label for="email">Adres
-						e-mail</label>
+					<input  th:field="${profileForm.email}"  id="email" 
+													type="text" th:errorclass="invalid"/> 
+					<label for="email" th:text="#{email}">Adres e-mail</label>
+					<div th:errors="*{email}" class="red-text">Błąd</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="input-field col s6">
-					<input th:field="${profileForm.birthDate}" id="birthDate" type="text" th:placeholder="${dateFormat}"/> <label for="birthDate">Data
-						urodzenia</label>
+					<input th:field="${profileForm.birthDate}" id="birthDate" type="text" 
+						th:errorclass="invalid" th:placeholder="${dateFormat}"/> 
+						<label for="birthDate" th:text="#{birthdate}">Data urodzenia</label>
+						<div th:errors="*{birthDate}" class="red-text">Błąd</div>
+						
 				</div>
 			</div>
 			<div class="row s12">
 				<button class="btn waves-effect waves-light" type="submit"
-					name="save">
+					name="save" th:text="#{search.command}">
 					Wyślij <i class="mdi-content-send right"></i>
 				</button>
 			</div>
