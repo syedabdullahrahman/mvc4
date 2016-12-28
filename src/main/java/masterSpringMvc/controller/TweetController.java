@@ -21,7 +21,7 @@ public class TweetController {
 	@Autowired
 	private Twitter twitter;
 
-	@RequestMapping("/")
+	@RequestMapping("/lookup")
 	public String home(){
 		return "searchPage";
 	}

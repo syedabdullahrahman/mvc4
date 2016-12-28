@@ -11,9 +11,11 @@ import org.springframework.format.FormatterRegistry;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import org.springframework.web.util.UrlPathHelper;
 
 import java.time.LocalDate;
 
@@ -55,5 +57,16 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
 	public EmbeddedServletContainerCustomizer containerCustomizer() {
 		return container -> container.addErrorPages(new ErrorPage(MultipartException.class, "/uploadError"));
 	}
+	
+	/*
+	 * to enable using matrix variables in URL (;)
+	 */
+	@Override
+	public void configurePathMatch(PathMatchConfigurer configurer) {
+	  UrlPathHelper urlPathHelper = new UrlPathHelper();
+	  urlPathHelper.setRemoveSemicolonContent(false);
+	  configurer.setUrlPathHelper(urlPathHelper);
+	}
+	
 
 }

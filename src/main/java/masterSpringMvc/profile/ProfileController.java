@@ -35,7 +35,7 @@ public class ProfileController {
 	}
 	
 	@RequestMapping("/profile")
-	public String displayProfile(ProfileForm profileForm) {
+	public String displayProfile() {
 		return "profile/profilePage";
 	}
 	
@@ -45,12 +45,11 @@ public class ProfileController {
 			return "profile/profilePage";
 		}
 		userProfileSession.saveForm(profileForm);
-		return "redirect:/profile";
+		 return "redirect:/search/mixed;keywords=" + String.join(",",profileForm.getTastes());
 	}
 
 	@RequestMapping(value = "/profile", params = { "addTaste" })
 	public String addRow(ProfileForm profileForm) {
-		System.out.println("addtaste profileform use");
 		profileForm.getTastes().add(null);
 		return "profile/profilePage";
 	}

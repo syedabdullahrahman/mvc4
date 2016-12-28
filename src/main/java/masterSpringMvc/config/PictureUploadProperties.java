@@ -3,7 +3,6 @@ package masterSpringMvc.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
-import java.io.IOException;
 
 @ConfigurationProperties(prefix = "upload.pictures")
 public class PictureUploadProperties {

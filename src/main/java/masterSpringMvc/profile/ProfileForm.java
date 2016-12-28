@@ -72,6 +72,12 @@ public class ProfileForm {
 	public void setTastes(List<String> tastes) {
 		this.tastes = tastes;
 	}
+	@Override
+	public String toString() {
+		return "ProfileForm [twitterHandle=" + twitterHandle + ", email=" + email + ", birthDate=" + birthDate
+				+ ", tastes=" + tastes + "] " + super.toString();
+	}
+	
 	
 
 	
