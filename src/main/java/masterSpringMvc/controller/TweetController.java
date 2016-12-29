@@ -1,5 +1,6 @@
 package masterSpringMvc.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,9 +16,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import masterSpringMvc.search.LightTweet;
+import masterSpringMvc.search.SearchService;
+
 @Controller
 public class TweetController {
-
+	@Autowired
+	private SearchService searchService;
 	@Autowired
 	private Twitter twitter;
 
@@ -39,8 +44,9 @@ public class TweetController {
 
 	@RequestMapping("/result")
 	public String result(@RequestParam(defaultValue = "holidays") String search, Model model) {
-		SearchResults searchResults = twitter.searchOperations().search(search);
-		List<Tweet> tweets = searchResults.getTweets();
+		ArrayList<String> list = new ArrayList<>();
+		list.add(search);
+		List<LightTweet> tweets = searchService.search("mixed",list);
 		model.addAttribute("tweets", tweets);
 		model.addAttribute("search", search);
 		return "resultPage";

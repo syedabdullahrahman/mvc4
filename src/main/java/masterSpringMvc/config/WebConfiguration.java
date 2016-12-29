@@ -7,7 +7,9 @@ import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomi
 import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -16,6 +18,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.util.UrlPathHelper;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.time.LocalDate;
 
@@ -66,6 +71,16 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
 	  UrlPathHelper urlPathHelper = new UrlPathHelper();
 	  urlPathHelper.setRemoveSemicolonContent(false);
 	  configurer.setUrlPathHelper(urlPathHelper);
+	}
+	/*
+	 * date format serialization for JSON 
+	 */
+	@Bean
+	@Primary
+	public ObjectMapper objectMapper(Jackson2ObjectMapperBuilder builder) {
+	  ObjectMapper objectMapper = builder.createXmlMapper(false).build();
+	  objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,false);
+	  return objectMapper;
 	}
 	
 
