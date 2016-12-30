@@ -1,7 +1,9 @@
 package masterSpringMvc.config;
 
 import masterSpringMvc.date.LocalDateFormatter;
-
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
 import org.springframework.boot.web.servlet.ErrorPage;
@@ -25,6 +27,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.time.LocalDate;
 
 @Configuration
+@EnableSwagger2
 public class WebConfiguration extends WebMvcConfigurerAdapter {
 
 	/*
@@ -65,12 +68,16 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
 	
 	/*
 	 * to enable using matrix variables in URL (;)
+	 * to enable e-mail patterns (.)
 	 */
 	@Override
 	public void configurePathMatch(PathMatchConfigurer configurer) {
 	  UrlPathHelper urlPathHelper = new UrlPathHelper();
+	  // matrix
 	  urlPathHelper.setRemoveSemicolonContent(false);
 	  configurer.setUrlPathHelper(urlPathHelper);
+	  // dot e-mail address
+	  configurer.setUseRegisteredSuffixPatternMatch(true);
 	}
 	/*
 	 * date format serialization for JSON 
@@ -83,5 +90,15 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
 	  return objectMapper;
 	}
 	
+	/*
+	 * Swagger 2
+	 */
+	@Bean
+	public Docket userApi() {
+	  return new Docket(DocumentationType.SWAGGER_2)
+	    .select()
+	      .paths(path -> path.startsWith("/api/"))
+	        .build();
+	}
 
 }
