@@ -24,17 +24,22 @@
 			</ul>
 		</div>
 	</nav>
-	<div>
-		Jesteś zalogowany jako <b sec:authentication="name" /> z rolami <span
-			sec:authentication="authorities" /> -
-		<form th:action="@{/logout}" method="post"
-			style="display: inline-block">
-			<input type="submit" value="Wyloguj" />
+	<div sec:authorize="isAuthenticated()">
+	<form th:action="@{/logout}" method="post" style="display: inline-block">
+		<button class="btn waves-effect waves-light" type="submit"
+			name="logout" th:text="#{logout}">Wyloguj 
+			<i class="mdi-content-send right"></i>
+		</button>
 		</form>
-		<hr />
-		<div sec:authorize="hasRole('ROLE_ADMIN')">
-  				Jesteś administratorem
-		</div>
+		<!-- with authorities -->
+	<!-- <span th:text="#{login.info(${#authentication.name}, ${#authentication.authorities})}">
+		Jesteś zalogowany jako <b sec:authentication="name" /> z rolami <span sec:authentication="authorities" />
+	</span>
+	 -->
+	 <span th:text="#{login.info(${#authentication.name})}">
+		Jesteś zalogowany jako <b sec:authentication="name" />/>
+	</span>
+	<hr />
 	</div>
 	<section layout:fragment="content">
 		<p>Zawartość strony</p>
