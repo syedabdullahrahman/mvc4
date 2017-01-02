@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Primary;
 
 import java.util.Arrays;
 
-@Configuration
+//@Configuration
 public class StubTwitterSearchConfig {
     @Primary
     @Bean
