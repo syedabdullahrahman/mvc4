@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 @Configuration
 public class StubTwitterSearchConfig {
-    @Primary 
+    @Primary
     @Bean
     public TwitterSearch twitterSearch() {
         return (searchType, keywords) -> Arrays.asList(

@@ -32,13 +32,19 @@
 		</button>
 		</form>
 		<!-- with authorities -->
-	<!-- <span th:text="#{login.info(${#authentication.name}, ${#authentication.authorities})}">
+	<!-- 
+	<span th:text="#{login.info(${#authentication.name}, ${#authentication.authorities})}">
 		Jesteś zalogowany jako <b sec:authentication="name" /> z rolami <span sec:authentication="authorities" />
 	</span>
 	 -->
+	 <!-- with authorities parameters -->
+	 <!--
 	 <span th:text="#{login.info(${#authentication.name})}">
 		Jesteś zalogowany jako <b sec:authentication="name" />/>
 	</span>
+	 -->
+	 <span th:text="#{login.info(${#authentication.name}, ${#authentication.authorities})}">
+		Jesteś zalogowany jako </span>  <a th:href="@{/profile}"><b sec:authentication="name" /></a>
 	<hr />
 	</div>
 	<section layout:fragment="content">
