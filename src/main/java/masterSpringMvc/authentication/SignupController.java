@@ -16,21 +16,16 @@ public class SignupController {
 	@Autowired
 	public SignupController(ConnectionFactoryLocator connectionFactoryLocator,
 			UsersConnectionRepository connectionRepository) {
-		System.out.println("SignupController: constructor START");
 		signInUtils = new ProviderSignInUtils(connectionFactoryLocator, connectionRepository);
-		System.out.println("SignupController: constructor END");
 	}
 
 	@RequestMapping(value = "/signup")
 	public String signup(WebRequest request) {
-		System.out.println("SignupController: signup START");
 		Connection<?> connection = signInUtils.getConnectionFromSession(request);
 		if (connection != null) {
-			System.out.println("SignupController: signup in if: connection was null, doAuthenticate from adapter");
 			AuthenticatingSignInAdapter.authenticate(connection);
 			signInUtils.doPostSignUp(connection.getDisplayName(), request);
 		}
-		System.out.println("SignupController: signup END:redirect to profile");
 		return "redirect:/profile";
 	}
 }
