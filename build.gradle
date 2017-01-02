@@ -38,6 +38,7 @@ dependencies {
 	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
     compile 'org.springframework.boot:spring-boot-starter-security'
     compile 'org.thymeleaf.extras:thymeleaf-extras-springsecurity4'
+    testCompile 'com.jayway.jsonpath:json-path'
 	testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
 

@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import masterSpringMvc.search.LightTweet;
-import masterSpringMvc.search.SearchService;
+import masterSpringMvc.search.TwitterSearch;
 
 @Controller
 public class TweetController {
 	@Autowired
-	private SearchService searchService;
+	private TwitterSearch twitterSearch;
 	@Autowired
 	private Twitter twitter;
 
@@ -46,7 +46,7 @@ public class TweetController {
 	public String result(@RequestParam(defaultValue = "holidays") String search, Model model) {
 		ArrayList<String> list = new ArrayList<>();
 		list.add(search);
-		List<LightTweet> tweets = searchService.search("mixed",list);
+		List<LightTweet> tweets = twitterSearch.search("mixed",list);
 		model.addAttribute("tweets", tweets);
 		model.addAttribute("search", search);
 		return "resultPage";

@@ -44,4 +44,12 @@ public class UserRepository {
 	public boolean exists(String email) {
 		return userMap.containsKey(email);
 	}
+
+	void reset(User... users) {
+		userMap.clear();
+		for (User user : users) {
+			save(user);
+		}
+	}
+
 }

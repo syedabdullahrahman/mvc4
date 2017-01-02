@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class SearchService {
+public class SearchService implements TwitterSearch {
   private Twitter twitter;
   
   @Autowired
@@ -17,7 +17,11 @@ public class SearchService {
     this.twitter = twitter;
   }
   
-  public List<LightTweet> search(String searchType, List<String> keywords) {
+  /* (non-Javadoc)
+ * @see masterSpringMvc.search.TwitterSearch#search(java.lang.String, java.util.List)
+ */
+@Override
+public List<LightTweet> search(String searchType, List<String> keywords) {
 	  /* lambda version */
 		List<SearchParameters> searches = keywords.stream().map(taste -> createSearchParam(searchType, taste))
 				.collect(Collectors.toList());
