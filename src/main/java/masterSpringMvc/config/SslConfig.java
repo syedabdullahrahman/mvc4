@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
-@Configuration
+//@Configuration
 public class SslConfig {
   @Bean
   public EmbeddedServletContainerFactory servletContainer() throws IOException {
