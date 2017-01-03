@@ -27,5 +27,4 @@ public class SearchService implements TwitterSearch {
 		return keywords.stream().flatMap(keyword -> searchCache.fetch(searchType, keyword).stream())
 				.collect(Collectors.toList());
 	}
-
 }

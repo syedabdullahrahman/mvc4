@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.web.filter.ShallowEtagHeaderFilter;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -25,6 +26,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.time.LocalDate;
+
+import javax.servlet.Filter;
 
 @Configuration
 @EnableSwagger2
@@ -99,6 +102,14 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
 	    .select()
 	      .paths(path -> path.startsWith("/api/"))
 	        .build();
+	}
+	
+	/*
+	 * ETag
+	 */
+	@Bean
+	public Filter etagFilter() {
+	  return new ShallowEtagHeaderFilter();
 	}
 
 }

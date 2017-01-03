@@ -38,6 +38,12 @@ dependencies {
 	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
     compile 'org.springframework.boot:spring-boot-starter-security'
     compile 'org.thymeleaf.extras:thymeleaf-extras-springsecurity4'
+    
+    compile 'org.springframework.boot:spring-boot-starter-websocket'
+	compile 'org.springframework:spring-messaging'
+	compile 'org.webjars:sockjs-client:1.0.0'
+	compile 'org.webjars:stomp-websocket:2.3.3'
+    
     testCompile 'com.jayway.jsonpath:json-path'
 	testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
